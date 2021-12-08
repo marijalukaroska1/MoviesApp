@@ -51,7 +51,7 @@ class FetchMoviesUseCase(private val moviesApi: MoviesApi) :
         }
     }
 
-    internal class MoviesRemoteDataSourceImpl(
+    class MoviesRemoteDataSourceImpl(
         private val moviesApi: MoviesApi
     ) : MoviesRemoteDataSource {
 

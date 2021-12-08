@@ -5,5 +5,5 @@ import com.example.moviesapp.screens.common.activities.BaseActivity
 
 open class BaseFragment: Fragment() {
 
-    protected val appCompositionRoot get() = (requireActivity() as BaseActivity).appCompositionRoot
+    protected val compositionRoot get() = (requireActivity() as BaseActivity).compositionRoot
 }

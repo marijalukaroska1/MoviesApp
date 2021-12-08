@@ -105,7 +105,7 @@ class MoviesListViewMvc(
             holder.description.text = getItem(position)?.description
             holder.image.load(Constants.IMAGE_BASE_URL + getItem(position)?.posterPath)
             holder.itemView.setOnClickListener {
-                //onMovieClickListener.invoke(getItem(position)?)
+                onMovieClickListener.invoke(getItem(position)!!)
             }
         }
 

@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import com.example.moviesapp.movies.FetchMoviesUseCase
 import com.example.moviesapp.movies.Movie
 import com.example.moviesapp.movies.MoviesRemoteDataSource
+import com.example.moviesapp.screens.ScreensNavigator
 import com.example.moviesapp.screens.common.fragments.BaseFragment
 import com.example.moviesapp.screens.dialogs.DialogsNavigator
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
+
 
 class MoviesListFragment : BaseFragment(), MoviesListViewMvc.Listener {
 
@@ -25,14 +27,16 @@ class MoviesListFragment : BaseFragment(), MoviesListViewMvc.Listener {
 
     private lateinit var dialogsNavigator: DialogsNavigator
 
+    private lateinit var screensNavigator: ScreensNavigator
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        fetchMoviesUseCase = FetchMoviesUseCase(appCompositionRoot.moviesApi)
-        moviesRemoteDataSource = FetchMoviesUseCase.MoviesRemoteDataSourceImpl(appCompositionRoot.moviesApi)
-        dialogsNavigator = DialogsNavigator(requireActivity().supportFragmentManager)
-
+        fetchMoviesUseCase = compositionRoot.fetchMoviesUseCase
+        moviesRemoteDataSource =
+            FetchMoviesUseCase.MoviesRemoteDataSourceImpl(compositionRoot.moviesApi)
+        dialogsNavigator = compositionRoot.dialogsNavigator
+        screensNavigator = compositionRoot.screenNavigator
     }
 
     override fun onCreateView(
@@ -40,6 +44,8 @@ class MoviesListFragment : BaseFragment(), MoviesListViewMvc.Listener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        Log.d(this::class.java.simpleName, "onCreateView()")
         viewMvc = MoviesListViewMvc(LayoutInflater.from(context), null, dialogsNavigator)
         return viewMvc.rootView
     }
@@ -50,7 +56,7 @@ class MoviesListFragment : BaseFragment(), MoviesListViewMvc.Listener {
 
 
     override fun onMovieClicked(clickedMovie: Movie) {
-        TODO("Not yet implemented")
+        screensNavigator.toMovieDetails(viewMvc.rootView, clickedMovie)
     }
 
     private fun fetchMovies() {
