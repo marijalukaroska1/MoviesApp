@@ -18,17 +18,11 @@ import kotlinx.coroutines.flow.collectLatest
 class MoviesListFragment : BaseFragment(), MoviesListViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-
     private lateinit var viewMvc: MoviesListViewMvc
-
     private lateinit var fetchMoviesUseCase: FetchMoviesUseCase
-
     private lateinit var moviesRemoteDataSource: MoviesRemoteDataSource
-
     private lateinit var dialogsNavigator: DialogsNavigator
-
     private lateinit var screensNavigator: ScreensNavigator
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,10 +37,10 @@ class MoviesListFragment : BaseFragment(), MoviesListViewMvc.Listener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         Log.d(this::class.java.simpleName, "onCreateView()")
-        viewMvc = MoviesListViewMvc(LayoutInflater.from(context), null, dialogsNavigator)
+        viewMvc = compositionRoot.viewMvcFactory.getMoviesListViewMvc(container, dialogsNavigator)
         return viewMvc.rootView
     }
 
@@ -56,7 +50,7 @@ class MoviesListFragment : BaseFragment(), MoviesListViewMvc.Listener {
 
 
     override fun onMovieClicked(clickedMovie: Movie) {
-        screensNavigator.toMovieDetails(viewMvc.rootView, clickedMovie)
+        screensNavigator.toMovieDetails(viewMvc.rootView, clickedMovie.id)
     }
 
     private fun fetchMovies() {
@@ -80,5 +74,4 @@ class MoviesListFragment : BaseFragment(), MoviesListViewMvc.Listener {
         coroutineScope.coroutineContext.cancelChildren()
         viewMvc.unregisterListener(this)
     }
-
 }

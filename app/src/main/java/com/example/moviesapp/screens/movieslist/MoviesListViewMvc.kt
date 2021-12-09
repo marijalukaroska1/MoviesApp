@@ -16,7 +16,7 @@ import coil.load
 import com.example.moviesapp.Constants
 import com.example.moviesapp.R
 import com.example.moviesapp.movies.Movie
-import com.example.moviesapp.screens.common.BaseViewMvc
+import com.example.moviesapp.screens.common.views.BaseViewMvc
 import com.example.moviesapp.screens.dialogs.DialogsNavigator
 
 class MoviesListViewMvc(
