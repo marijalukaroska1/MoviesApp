@@ -1,4 +1,4 @@
-package com.example.moviesapp.screens.common
+package com.example.moviesapp.screens.common.views
 
 import android.content.Context
 import android.view.LayoutInflater
