@@ -19,6 +19,7 @@ import com.example.moviesapp.movies.Movie
 import com.example.moviesapp.screens.common.views.BaseViewMvc
 import com.example.moviesapp.screens.dialogs.DialogsNavigator
 
+//parent: ViewGroup will be null in all activities, but in fragments it wont be null
 class MoviesListViewMvc(
     layoutInflater: LayoutInflater,
     parent: ViewGroup?,

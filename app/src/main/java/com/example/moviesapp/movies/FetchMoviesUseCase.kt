@@ -10,7 +10,7 @@ import java.io.IOException
 private const val DEFAULT_PAGE_INDEX = 1
 private const val DEFAULT_PAGE_SIZE = 20
 
-class FetchMoviesUseCase(private val moviesApi: MoviesApi) :
+class FetchMoviesUseCase(val moviesApi: MoviesApi) :
     PagingSource<Int, Movie>() {
 
     override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {
@@ -62,7 +62,7 @@ class FetchMoviesUseCase(private val moviesApi: MoviesApi) :
                     enablePlaceholders = false
                 ),
                 pagingSourceFactory = {
-                    FetchMoviesUseCase(moviesApi = moviesApi)
+                    FetchMoviesUseCase(moviesApi)
                 }
             ).flow
         }

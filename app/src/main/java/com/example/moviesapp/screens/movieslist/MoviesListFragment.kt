@@ -18,17 +18,17 @@ import kotlinx.coroutines.flow.collectLatest
 class MoviesListFragment : BaseFragment(), MoviesListViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-    private lateinit var viewMvc: MoviesListViewMvc
     private lateinit var fetchMoviesUseCase: FetchMoviesUseCase
     private lateinit var moviesRemoteDataSource: MoviesRemoteDataSource
     private lateinit var dialogsNavigator: DialogsNavigator
     private lateinit var screensNavigator: ScreensNavigator
 
+    private lateinit var viewMvc: MoviesListViewMvc
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fetchMoviesUseCase = compositionRoot.fetchMoviesUseCase
-        moviesRemoteDataSource =
-            FetchMoviesUseCase.MoviesRemoteDataSourceImpl(compositionRoot.moviesApi)
+        moviesRemoteDataSource = compositionRoot.moviesRemoteDataSource
         dialogsNavigator = compositionRoot.dialogsNavigator
         screensNavigator = compositionRoot.screenNavigator
     }
@@ -38,7 +38,6 @@ class MoviesListFragment : BaseFragment(), MoviesListViewMvc.Listener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         Log.d(this::class.java.simpleName, "onCreateView()")
         viewMvc = compositionRoot.viewMvcFactory.getMoviesListViewMvc(container, dialogsNavigator)
         return viewMvc.rootView
@@ -60,7 +59,6 @@ class MoviesListFragment : BaseFragment(), MoviesListViewMvc.Listener {
                 viewMvc.bindMovies(movies)
             }
         }
-
     }
 
     override fun onStart() {

@@ -13,10 +13,19 @@ import kotlinx.coroutines.*
 class MovieDetailsFragment : BaseFragment(), MovieDetailsViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-    private lateinit var viewMvc: MovieDetailsViewMvc
     private lateinit var dialogsNavigator: DialogsNavigator
     private lateinit var fetchMovieDetailsUseCase: FetchMovieDetailsUseCase
+
+    private lateinit var viewMvc: MovieDetailsViewMvc
+
     private var movieId: Int = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d(this::class.java.simpleName, "context: " + context)
+        dialogsNavigator = compositionRoot.dialogsNavigator
+        fetchMovieDetailsUseCase = compositionRoot.fetchMovieDetailsUseCase
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,13 +34,6 @@ class MovieDetailsFragment : BaseFragment(), MovieDetailsViewMvc.Listener {
     ): View {
         viewMvc = compositionRoot.viewMvcFactory.getMovieDetailsViewMvc(container)
         return viewMvc.rootView
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d(this::class.java.simpleName, "context: " + context)
-        dialogsNavigator = compositionRoot.dialogsNavigator
-        fetchMovieDetailsUseCase = compositionRoot.fetchMovieDetailsUseCase
     }
 
     override fun onStart() {

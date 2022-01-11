@@ -1,28 +1,24 @@
 package com.example.moviesapp.common.composition
 
 import androidx.appcompat.app.AppCompatActivity
-import com.example.moviesapp.movies.FetchMovieDetailsUseCase
-import com.example.moviesapp.movies.FetchMoviesUseCase
 import com.example.moviesapp.screens.ScreensNavigator
-import com.example.moviesapp.screens.common.views.ViewMvcFactory
-import com.example.moviesapp.screens.dialogs.DialogsNavigator
 
+/**
+ * ActivityCompositionRoot class defines which services
+ * are scope to the activity and which services depend on activity in general
+ */
 class ActivityCompositionRoot(
     private val activity: AppCompatActivity,
     private val appCompositionRoot: AppCompositionRoot
 ) {
 
-    private val fragmentManager get() = activity.supportFragmentManager
+    val screenNavigator by lazy {
+        ScreensNavigator(activity)
+    }
 
-    val dialogsNavigator get() = DialogsNavigator(fragmentManager)
+    val fragmentManager get() = activity.supportFragmentManager
 
-    val screenNavigator get() = ScreensNavigator(activity)
+    val layoutInflater get() = activity.layoutInflater
 
     val moviesApi get() = appCompositionRoot.moviesApi
-
-    val fetchMoviesUseCase get() = FetchMoviesUseCase(moviesApi)
-
-    val fetchMovieDetailsUseCase get() = FetchMovieDetailsUseCase(moviesApi)
-
-    val viewMvcFactory get() = ViewMvcFactory(activity.layoutInflater)
 }
