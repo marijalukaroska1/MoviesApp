@@ -10,7 +10,7 @@ import kotlin.coroutines.cancellation.CancellationException
 class FetchMovieDetailsUseCase(private val moviesApi: MoviesApi) {
 
     sealed class Result {
-        class Success(val movieWithBody: MovieWithBody) : Result()
+        data class Success(val movieWithBody: MovieWithBody) : Result()
         object Failure : Result()
     }
 

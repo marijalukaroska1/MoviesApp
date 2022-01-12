@@ -1,7 +1,7 @@
 package com.example.moviesapp
 
 import android.app.Application
-import com.example.moviesapp.common.composition.AppCompositionRoot
+import com.example.moviesapp.common.dependancyinjection.AppCompositionRoot
 
 class MoviesApplication : Application() {
 
@@ -10,7 +10,7 @@ class MoviesApplication : Application() {
     lateinit var appCompositionRoot: AppCompositionRoot
 
     override fun onCreate() {
-        appCompositionRoot = AppCompositionRoot()
+        appCompositionRoot = AppCompositionRoot(this)
         super.onCreate()
     }
 }

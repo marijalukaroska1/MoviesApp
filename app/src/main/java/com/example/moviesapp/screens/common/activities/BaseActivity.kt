@@ -2,8 +2,9 @@ package com.example.moviesapp.screens.common.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import com.example.moviesapp.MoviesApplication
-import com.example.moviesapp.common.composition.ActivityCompositionRoot
-import com.example.moviesapp.common.composition.PresentationCompositionRoot
+import com.example.moviesapp.common.dependancyinjection.ActivityCompositionRoot
+import com.example.moviesapp.common.dependancyinjection.Injector
+import com.example.moviesapp.common.dependancyinjection.PresentationCompositionRoot
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -13,7 +14,9 @@ open class BaseActivity : AppCompatActivity() {
         ActivityCompositionRoot(this, appCompositionRoot)
     }
 
-    protected val compositionRoot by lazy {
+    private val compositionRoot by lazy {
         PresentationCompositionRoot(activityCompositionRoot)
     }
+
+    protected val injector get() = Injector(compositionRoot)
 }

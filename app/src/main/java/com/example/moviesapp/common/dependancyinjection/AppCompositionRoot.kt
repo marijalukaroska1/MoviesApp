@@ -1,9 +1,8 @@
-package com.example.moviesapp.common.composition
+package com.example.moviesapp.common.dependancyinjection
 
+import android.app.Application
 import androidx.annotation.UiThread
 import com.example.moviesapp.Constants
-import com.example.moviesapp.movies.FetchMovieDetailsUseCase
-import com.example.moviesapp.movies.FetchMoviesUseCase
 import com.example.moviesapp.networking.MoviesApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -11,13 +10,20 @@ import retrofit2.converter.gson.GsonConverterFactory
 /**
  * Abstraction that encapsulates all the details
  * of construction and lifecycle management of the different services of the application
+ *
+ * This class just instantiates other classes and declare dependencies, and do not handle any functional concerns
+ *
+ *
+ * With this class we are protected by design from accidentally
+ * passing activity context into services which have longer life time, therefor by design we are protected
+ * from memory leaks associated with capturing activity context in global scope
  */
 
 // This annotation is a hint to future maintainers that everything
 // inside this class should be accessed on UI thread exclusively
 // lint will report if this condition is violated
 @UiThread
-class AppCompositionRoot {
+class AppCompositionRoot(val application : Application) {
 
     //DI-segregation of application's logic into two sets of classes:
 

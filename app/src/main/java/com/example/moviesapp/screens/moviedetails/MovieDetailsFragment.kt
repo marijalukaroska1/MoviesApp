@@ -7,14 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.moviesapp.movies.FetchMovieDetailsUseCase
 import com.example.moviesapp.screens.common.fragments.BaseFragment
+import com.example.moviesapp.screens.common.views.ViewMvcFactory
 import com.example.moviesapp.screens.dialogs.DialogsNavigator
 import kotlinx.coroutines.*
 
 class MovieDetailsFragment : BaseFragment(), MovieDetailsViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-    private lateinit var dialogsNavigator: DialogsNavigator
-    private lateinit var fetchMovieDetailsUseCase: FetchMovieDetailsUseCase
+
+    lateinit var dialogsNavigator: DialogsNavigator
+    lateinit var fetchMovieDetailsUseCase: FetchMovieDetailsUseCase
+    lateinit var viewMvcFactory: ViewMvcFactory
 
     private lateinit var viewMvc: MovieDetailsViewMvc
 
@@ -22,9 +25,8 @@ class MovieDetailsFragment : BaseFragment(), MovieDetailsViewMvc.Listener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        injector.inject(this)
         Log.d(this::class.java.simpleName, "context: " + context)
-        dialogsNavigator = compositionRoot.dialogsNavigator
-        fetchMovieDetailsUseCase = compositionRoot.fetchMovieDetailsUseCase
     }
 
     override fun onCreateView(
@@ -32,7 +34,7 @@ class MovieDetailsFragment : BaseFragment(), MovieDetailsViewMvc.Listener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewMvc = compositionRoot.viewMvcFactory.getMovieDetailsViewMvc(container)
+        viewMvc = viewMvcFactory.getMovieDetailsViewMvc(container)
         return viewMvc.rootView
     }
 

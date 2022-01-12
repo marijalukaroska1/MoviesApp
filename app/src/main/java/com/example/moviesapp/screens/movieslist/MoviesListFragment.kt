@@ -10,6 +10,7 @@ import com.example.moviesapp.movies.Movie
 import com.example.moviesapp.movies.MoviesRemoteDataSource
 import com.example.moviesapp.screens.ScreensNavigator
 import com.example.moviesapp.screens.common.fragments.BaseFragment
+import com.example.moviesapp.screens.common.views.ViewMvcFactory
 import com.example.moviesapp.screens.dialogs.DialogsNavigator
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
@@ -18,19 +19,19 @@ import kotlinx.coroutines.flow.collectLatest
 class MoviesListFragment : BaseFragment(), MoviesListViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-    private lateinit var fetchMoviesUseCase: FetchMoviesUseCase
-    private lateinit var moviesRemoteDataSource: MoviesRemoteDataSource
-    private lateinit var dialogsNavigator: DialogsNavigator
-    private lateinit var screensNavigator: ScreensNavigator
+
+    lateinit var fetchMoviesUseCase: FetchMoviesUseCase
+    lateinit var moviesRemoteDataSource: MoviesRemoteDataSource
+    lateinit var dialogsNavigator: DialogsNavigator
+    lateinit var screensNavigator: ScreensNavigator
+    lateinit var viewMvcFactory: ViewMvcFactory
 
     private lateinit var viewMvc: MoviesListViewMvc
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        fetchMoviesUseCase = compositionRoot.fetchMoviesUseCase
-        moviesRemoteDataSource = compositionRoot.moviesRemoteDataSource
-        dialogsNavigator = compositionRoot.dialogsNavigator
-        screensNavigator = compositionRoot.screenNavigator
+        //when in activity, this should be called before super.onCreate()
+        injector.inject(this)
     }
 
     override fun onCreateView(
@@ -39,7 +40,7 @@ class MoviesListFragment : BaseFragment(), MoviesListViewMvc.Listener {
         savedInstanceState: Bundle?
     ): View {
         Log.d(this::class.java.simpleName, "onCreateView()")
-        viewMvc = compositionRoot.viewMvcFactory.getMoviesListViewMvc(container, dialogsNavigator)
+        viewMvc = viewMvcFactory.getMoviesListViewMvc(container, dialogsNavigator)
         return viewMvc.rootView
     }
 

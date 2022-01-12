@@ -1,4 +1,4 @@
-package com.example.moviesapp.common.composition
+package com.example.moviesapp.common.dependancyinjection
 
 import com.example.moviesapp.movies.FetchMovieDetailsUseCase
 import com.example.moviesapp.movies.FetchMoviesUseCase
@@ -8,6 +8,8 @@ import com.example.moviesapp.screens.dialogs.DialogsNavigator
 /**
  * This PresentationCompositionRoot is just one huge factory,
  * and used just to make sure ActivityCompositionRoot stays clean
+ *
+ * This class just instantiates other classes and declare dependencies, and do not handle any functional concerns
  */
 class PresentationCompositionRoot(private val activityCompositionRoot: ActivityCompositionRoot) {
 
