@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.moviesapp.common.dependancyinjection.Service
 import com.example.moviesapp.movies.FetchMoviesUseCase
 import com.example.moviesapp.movies.Movie
 import com.example.moviesapp.movies.MoviesRemoteDataSource
@@ -20,11 +21,11 @@ class MoviesListFragment : BaseFragment(), MoviesListViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    lateinit var fetchMoviesUseCase: FetchMoviesUseCase
-    lateinit var moviesRemoteDataSource: MoviesRemoteDataSource
-    lateinit var dialogsNavigator: DialogsNavigator
-    lateinit var screensNavigator: ScreensNavigator
-    lateinit var viewMvcFactory: ViewMvcFactory
+    @field:Service private lateinit var fetchMoviesUseCase: FetchMoviesUseCase
+    @field:Service private lateinit var moviesRemoteDataSource: MoviesRemoteDataSource
+    @field:Service private lateinit var dialogsNavigator: DialogsNavigator
+    @field:Service private lateinit var screensNavigator: ScreensNavigator
+    @field:Service private lateinit var viewMvcFactory: ViewMvcFactory
 
     private lateinit var viewMvc: MoviesListViewMvc
 

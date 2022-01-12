@@ -5,19 +5,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.moviesapp.common.dependancyinjection.Service
 import com.example.moviesapp.movies.FetchMovieDetailsUseCase
 import com.example.moviesapp.screens.common.fragments.BaseFragment
 import com.example.moviesapp.screens.common.views.ViewMvcFactory
 import com.example.moviesapp.screens.dialogs.DialogsNavigator
 import kotlinx.coroutines.*
+import retrofit2.http.Field
 
 class MovieDetailsFragment : BaseFragment(), MovieDetailsViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    lateinit var dialogsNavigator: DialogsNavigator
-    lateinit var fetchMovieDetailsUseCase: FetchMovieDetailsUseCase
-    lateinit var viewMvcFactory: ViewMvcFactory
+    @field:Service private lateinit var dialogsNavigator: DialogsNavigator
+    @field:Service private lateinit var fetchMovieDetailsUseCase: FetchMovieDetailsUseCase
+    @field:Service private lateinit var viewMvcFactory: ViewMvcFactory
 
     private lateinit var viewMvc: MovieDetailsViewMvc
 
