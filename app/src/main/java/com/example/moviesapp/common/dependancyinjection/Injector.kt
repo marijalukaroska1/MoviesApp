@@ -8,7 +8,7 @@ import com.example.moviesapp.screens.common.views.ViewMvcFactory
 import com.example.moviesapp.screens.dialogs.DialogsNavigator
 import java.lang.reflect.Field
 
-class Injector(private val compositionRoot: PresentationCompositionRoot) {
+class Injector(private val component: PresentationComponent) {
 
     fun inject(client: Any) {
         for (field in getAllFields(client)) {
@@ -44,25 +44,25 @@ class Injector(private val compositionRoot: PresentationCompositionRoot) {
     private fun getServiceForClient(type: Class<*>?): Any {
         when (type) {
             DialogsNavigator::class.java -> {
-                return compositionRoot.dialogsNavigator
+                return component.dialogsNavigator()
             }
             ScreensNavigator::class.java -> {
-                return compositionRoot.screenNavigator
+                return component.screenNavigator()
             }
             FetchMoviesUseCase::class.java -> {
-                return compositionRoot.fetchMoviesUseCase
+                return component.fetchMoviesUseCase()
             }
 
             FetchMovieDetailsUseCase::class.java -> {
-                return compositionRoot.fetchMovieDetailsUseCase
+                return component.fetchMovieDetailsUseCase()
             }
 
             MoviesRemoteDataSource::class.java -> {
-                return compositionRoot.moviesRemoteDataSource
+                return component.moviesRemoteDataSource()
             }
 
             ViewMvcFactory::class.java -> {
-                return compositionRoot.viewMvcFactory
+                return component.viewMvcFactory()
             }
             else -> {
                 throw Exception("unsupported service type: $type")
