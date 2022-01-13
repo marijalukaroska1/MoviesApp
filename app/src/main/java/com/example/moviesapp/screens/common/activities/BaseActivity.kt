@@ -2,19 +2,25 @@ package com.example.moviesapp.screens.common.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import com.example.moviesapp.MoviesApplication
-import com.example.moviesapp.common.dependancyinjection.*
+import com.example.moviesapp.common.dependancyinjection.Injector
+import com.example.moviesapp.common.dependancyinjection.activity.ActivityModule
+import com.example.moviesapp.common.dependancyinjection.activity.DaggerActivityComponent
+import com.example.moviesapp.common.dependancyinjection.presentation.DaggerPresentationComponent
+import com.example.moviesapp.common.dependancyinjection.presentation.PresentationModule
 
 open class BaseActivity : AppCompatActivity() {
 
-    private val appCompositionRoot get() = (application as MoviesApplication).appCompositionRoot
+    private val appCompositionRoot get() = (application as MoviesApplication).appComponent
 
-    val activityCompositionRoot by lazy {
-        ActivityCompositionRoot(this, appCompositionRoot)
+    val activityComponent by lazy {
+        DaggerActivityComponent.builder()
+            .activityModule(ActivityModule(this, appCompositionRoot))
+            .build()
     }
 
     private val presentationComponent by lazy {
         DaggerPresentationComponent.builder()
-            .presentationModule(PresentationModule(activityCompositionRoot))
+            .presentationModule(PresentationModule(activityComponent))
             .build()
     }
 

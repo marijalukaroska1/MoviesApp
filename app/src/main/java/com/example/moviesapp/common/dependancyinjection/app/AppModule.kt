@@ -1,11 +1,14 @@
-package com.example.moviesapp.common.dependancyinjection
+package com.example.moviesapp.common.dependancyinjection.app
 
 import android.app.Application
 import androidx.annotation.UiThread
 import com.example.moviesapp.Constants
 import com.example.moviesapp.networking.MoviesApi
+import dagger.Module
+import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 /**
  * Abstraction that encapsulates all the details
@@ -23,7 +26,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 // inside this class should be accessed on UI thread exclusively
 // lint will report if this condition is violated
 @UiThread
-class AppCompositionRoot(val application : Application) {
+@Module
+class AppModule(val application: Application) {
 
     //DI-segregation of application's logic into two sets of classes:
 
@@ -57,13 +61,18 @@ class AppCompositionRoot(val application : Application) {
 //            _retrofit!!
 //        }
 //
-    private val retrofit: Retrofit by lazy {
-        Retrofit.Builder().baseUrl(Constants.BASE_URL)
+    @AppScope
+    @Provides
+    fun retrofit() : Retrofit {
+        return Retrofit.Builder().baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
-    val moviesApi: MoviesApi by lazy {
-        retrofit.create(MoviesApi::class.java)
-    }
+    @AppScope
+    @Provides
+    fun moviesApi(retrofit: Retrofit) = retrofit.create(MoviesApi::class.java)
+
+    @Provides
+    fun application() = application
 }

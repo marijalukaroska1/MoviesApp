@@ -1,6 +1,6 @@
-package com.example.moviesapp.common.dependancyinjection
+package com.example.moviesapp.common.dependancyinjection.presentation
 
-import android.view.LayoutInflater
+import com.example.moviesapp.common.dependancyinjection.presentation.PresentationModule
 import com.example.moviesapp.movies.FetchMovieDetailsUseCase
 import com.example.moviesapp.movies.FetchMoviesUseCase
 import com.example.moviesapp.screens.ScreensNavigator

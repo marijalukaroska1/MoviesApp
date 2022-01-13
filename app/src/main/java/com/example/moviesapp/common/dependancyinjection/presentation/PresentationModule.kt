@@ -1,7 +1,8 @@
-package com.example.moviesapp.common.dependancyinjection
+package com.example.moviesapp.common.dependancyinjection.presentation
 
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentManager
+import com.example.moviesapp.common.dependancyinjection.activity.ActivityComponent
 import com.example.moviesapp.movies.FetchMovieDetailsUseCase
 import com.example.moviesapp.movies.FetchMoviesUseCase
 import com.example.moviesapp.networking.MoviesApi
@@ -17,19 +18,19 @@ import dagger.Provides
  * This class just instantiates other classes and declare dependencies, and do not handle any functional concerns
  */
 @Module
-class PresentationModule(private val activityCompositionRoot: ActivityCompositionRoot) {
+class PresentationModule(private val activityComponent: ActivityComponent) {
 
     @Provides
-    fun layoutInflater() = activityCompositionRoot.layoutInflater
+    fun layoutInflater() = activityComponent.layoutInflater()
 
     @Provides
-    fun fragmentManager() = activityCompositionRoot.fragmentManager
+    fun fragmentManager() = activityComponent.fragmentManager()
 
     @Provides
-    fun moviesApi() = activityCompositionRoot.moviesApi
+    fun moviesApi() = activityComponent.moviesApi()
 
     @Provides
-    fun screenNavigator() = activityCompositionRoot.screenNavigator
+    fun screenNavigator() = activityComponent.screenNavigator()
 
     @Provides
     fun dialogsNavigator(fragmentManager: FragmentManager) = DialogsNavigator(fragmentManager)

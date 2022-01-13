@@ -1,5 +1,6 @@
 package com.example.moviesapp.common.dependancyinjection
 
+import com.example.moviesapp.common.dependancyinjection.presentation.PresentationComponent
 import com.example.moviesapp.movies.FetchMovieDetailsUseCase
 import com.example.moviesapp.movies.FetchMoviesUseCase
 import com.example.moviesapp.movies.MoviesRemoteDataSource
