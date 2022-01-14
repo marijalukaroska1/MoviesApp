@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.moviesapp.common.dependancyinjection.Service
 import com.example.moviesapp.movies.FetchMoviesUseCase
 import com.example.moviesapp.movies.Movie
 import com.example.moviesapp.movies.MoviesRemoteDataSource
@@ -15,17 +14,27 @@ import com.example.moviesapp.screens.common.views.ViewMvcFactory
 import com.example.moviesapp.screens.dialogs.DialogsNavigator
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
+import javax.inject.Inject
 
 
 class MoviesListFragment : BaseFragment(), MoviesListViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    @field:Service private lateinit var fetchMoviesUseCase: FetchMoviesUseCase
-    @field:Service private lateinit var moviesRemoteDataSource: MoviesRemoteDataSource
-    @field:Service private lateinit var dialogsNavigator: DialogsNavigator
-    @field:Service private lateinit var screensNavigator: ScreensNavigator
-    @field:Service private lateinit var viewMvcFactory: ViewMvcFactory
+    @Inject
+    lateinit var fetchMoviesUseCase: FetchMoviesUseCase
+
+    @Inject
+    lateinit var moviesRemoteDataSource: MoviesRemoteDataSource
+
+    @Inject
+    lateinit var dialogsNavigator: DialogsNavigator
+
+    @Inject
+    lateinit var screensNavigator: ScreensNavigator
+
+    @Inject
+    lateinit var viewMvcFactory: ViewMvcFactory
 
     private lateinit var viewMvc: MoviesListViewMvc
 

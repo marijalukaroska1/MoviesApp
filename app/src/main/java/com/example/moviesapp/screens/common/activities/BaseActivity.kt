@@ -2,7 +2,6 @@ package com.example.moviesapp.screens.common.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import com.example.moviesapp.MoviesApplication
-import com.example.moviesapp.common.dependancyinjection.Injector
 import com.example.moviesapp.common.dependancyinjection.activity.ActivityModule
 import com.example.moviesapp.common.dependancyinjection.activity.DaggerActivityComponent
 import com.example.moviesapp.common.dependancyinjection.presentation.DaggerPresentationComponent
@@ -24,5 +23,5 @@ open class BaseActivity : AppCompatActivity() {
             .build()
     }
 
-    protected val injector get() = Injector(presentationComponent)
+    protected val injector get() = presentationComponent
 }

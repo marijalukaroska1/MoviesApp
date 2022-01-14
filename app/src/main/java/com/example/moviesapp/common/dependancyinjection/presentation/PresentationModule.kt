@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager
 import com.example.moviesapp.common.dependancyinjection.activity.ActivityComponent
 import com.example.moviesapp.movies.FetchMovieDetailsUseCase
 import com.example.moviesapp.movies.FetchMoviesUseCase
+import com.example.moviesapp.movies.MoviesRemoteDataSource
 import com.example.moviesapp.networking.MoviesApi
 import com.example.moviesapp.screens.common.views.ViewMvcFactory
 import com.example.moviesapp.screens.dialogs.DialogsNavigator
@@ -42,7 +43,7 @@ class PresentationModule(private val activityComponent: ActivityComponent) {
     fun fetchMovieDetailsUseCase(moviesApi: MoviesApi) = FetchMovieDetailsUseCase(moviesApi)
 
     @Provides
-    fun moviesRemoteDataSource(moviesApi: MoviesApi) =
+    fun moviesRemoteDataSource(moviesApi: MoviesApi) : MoviesRemoteDataSource =
         FetchMoviesUseCase.MoviesRemoteDataSourceImpl(moviesApi)
 
     @Provides

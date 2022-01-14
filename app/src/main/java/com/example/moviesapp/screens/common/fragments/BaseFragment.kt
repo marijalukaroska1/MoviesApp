@@ -1,7 +1,6 @@
 package com.example.moviesapp.screens.common.fragments
 
 import androidx.fragment.app.Fragment
-import com.example.moviesapp.common.dependancyinjection.Injector
 import com.example.moviesapp.common.dependancyinjection.presentation.DaggerPresentationComponent
 import com.example.moviesapp.common.dependancyinjection.presentation.PresentationModule
 import com.example.moviesapp.screens.common.activities.BaseActivity
@@ -14,5 +13,5 @@ open class BaseFragment : Fragment() {
             .build()
     }
 
-    protected val injector get() = Injector(presentationComponent)
+    protected val injector get() = presentationComponent
 }
