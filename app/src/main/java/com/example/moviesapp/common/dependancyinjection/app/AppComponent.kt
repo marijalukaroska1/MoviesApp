@@ -11,8 +11,5 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun moviesApi(): MoviesApi
-
-    fun retrofit(): Retrofit
-
     fun application(): Application
 }

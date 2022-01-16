@@ -16,9 +16,7 @@ import dagger.Provides
  */
 @Module
 class ActivityModule(
-    private val activity: AppCompatActivity,
-    private val appComponent: AppComponent
-) {
+    private val activity: AppCompatActivity) {
 
     @Provides
     fun activity() = activity
@@ -31,16 +29,9 @@ class ActivityModule(
     @ActivityScope
     fun screenNavigator(activity: AppCompatActivity) = ScreensNavigator(activity)
 
-    //never use activity.applicationContext!!! it violets the Liskov substitution principle
     @Provides
-    fun application() = appComponent.application()
+    fun fragmentManager(activity: AppCompatActivity) = activity.supportFragmentManager
 
     @Provides
-    fun fragmentManager() = activity.supportFragmentManager
-
-    @Provides
-    fun layoutInflater() = activity.layoutInflater
-
-    @Provides
-    fun moviesApi() = appComponent.moviesApi()
+    fun layoutInflater(activity: AppCompatActivity) = activity.layoutInflater
 }

@@ -8,7 +8,6 @@ import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 /**
  * Abstraction that encapsulates all the details
@@ -61,16 +60,17 @@ class AppModule(val application: Application) {
 //            _retrofit!!
 //        }
 //
-    @AppScope
+
     @Provides
-    fun retrofit() : Retrofit {
+    @AppScope
+    fun retrofit(): Retrofit {
         return Retrofit.Builder().baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
-    @AppScope
     @Provides
+    @AppScope
     fun moviesApi(retrofit: Retrofit) = retrofit.create(MoviesApi::class.java)
 
     @Provides

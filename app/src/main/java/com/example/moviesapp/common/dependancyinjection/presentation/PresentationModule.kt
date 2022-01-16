@@ -19,19 +19,7 @@ import dagger.Provides
  * This class just instantiates other classes and declare dependencies, and do not handle any functional concerns
  */
 @Module
-class PresentationModule(private val activityComponent: ActivityComponent) {
-
-    @Provides
-    fun layoutInflater() = activityComponent.layoutInflater()
-
-    @Provides
-    fun fragmentManager() = activityComponent.fragmentManager()
-
-    @Provides
-    fun moviesApi() = activityComponent.moviesApi()
-
-    @Provides
-    fun screenNavigator() = activityComponent.screenNavigator()
+class PresentationModule() {
 
     @Provides
     fun dialogsNavigator(fragmentManager: FragmentManager) = DialogsNavigator(fragmentManager)
