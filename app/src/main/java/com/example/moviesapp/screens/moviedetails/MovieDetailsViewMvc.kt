@@ -1,24 +1,21 @@
 package com.example.moviesapp.screens.moviedetails
 
-import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
-import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import coil.load
 import com.example.moviesapp.Constants
 import com.example.moviesapp.R
 import com.example.moviesapp.movies.MovieWithBody
+import com.example.moviesapp.screens.common.imageloader.ImageLoader
 import com.example.moviesapp.screens.common.views.BaseViewMvc
-import com.google.common.base.Strings
 
 class MovieDetailsViewMvc(
     layoutInflater: LayoutInflater,
+    private val imageLoader: ImageLoader,
     parent: ViewGroup?
 ) : BaseViewMvc<MovieDetailsViewMvc.Listener>(
     layoutInflater,
@@ -59,8 +56,8 @@ class MovieDetailsViewMvc(
         movieDescription.text = movieWithBody.description
         val releaseDate = context.getString(R.string.release_date, movieWithBody.releaseDate)
         movieReleaseDate.text = releaseDate
-
-        moviePoster.load(Constants.IMAGE_BASE_URL + movieWithBody.posterPath)
+        
+        imageLoader.loadImage(Constants.IMAGE_BASE_URL + movieWithBody.posterPath, moviePoster)
     }
 
     fun showProgressIndication() {

@@ -1,7 +1,6 @@
 package com.example.moviesapp.common.dependancyinjection.activity
 
 import androidx.appcompat.app.AppCompatActivity
-import com.example.moviesapp.common.dependancyinjection.app.AppComponent
 import com.example.moviesapp.screens.ScreensNavigator
 import dagger.Module
 import dagger.Provides
@@ -20,6 +19,13 @@ class ActivityModule(
 
     @Provides
     fun activity() = activity
+
+    //when a service is scoped it means that there is some kind of state inside that object
+    //that needs to be shared among multiple clients
+
+    @Provides
+    @ActivityScope
+    fun screensNavigator(activity: AppCompatActivity) = ScreensNavigator(activity)
 
     @Provides
     fun fragmentManager(activity: AppCompatActivity) = activity.supportFragmentManager
