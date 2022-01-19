@@ -15,21 +15,25 @@ import dagger.Provides
 @Module
 class ActivityModule(
     //bootstrapping dependencies
-    private val activity: AppCompatActivity) {
+    private val activity: AppCompatActivity
+) {
 
     @Provides
     fun activity() = activity
 
-    //when a service is scoped it means that there is some kind of state inside that object
-    //that needs to be shared among multiple clients
+    //to make this code more performant we need to make provider methods static (in kotlin its done with companion object)
+    //the code that dagger will generate behind the scences will be more performant
+    companion object {
+        @Provides
+        @ActivityScope
+        //when a service is scoped it means that there is some kind of state inside that object
+        //that needs to be shared among multiple clients
+        fun screensNavigator(activity: AppCompatActivity) = ScreensNavigator(activity)
 
-    @Provides
-    @ActivityScope
-    fun screensNavigator(activity: AppCompatActivity) = ScreensNavigator(activity)
+        @Provides
+        fun fragmentManager(activity: AppCompatActivity) = activity.supportFragmentManager
 
-    @Provides
-    fun fragmentManager(activity: AppCompatActivity) = activity.supportFragmentManager
-
-    @Provides
-    fun layoutInflater(activity: AppCompatActivity) = activity.layoutInflater
+        @Provides
+        fun layoutInflater(activity: AppCompatActivity) = activity.layoutInflater
+    }
 }

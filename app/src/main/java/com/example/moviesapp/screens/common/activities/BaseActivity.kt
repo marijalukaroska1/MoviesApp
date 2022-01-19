@@ -9,12 +9,11 @@ open class BaseActivity : AppCompatActivity() {
 
     private val appComponent get() = (application as MoviesApplication).appComponent
 
-    val activityComponent
-            by lazy {
-                appComponent.newActivityComponent(
-                    ActivityModule(this)
-                )
-            }
+    val activityComponent by lazy {
+        appComponent.newActivityComponent(
+            ActivityModule(this)
+        )
+    }
 
 
     private val presentationComponent by lazy {
