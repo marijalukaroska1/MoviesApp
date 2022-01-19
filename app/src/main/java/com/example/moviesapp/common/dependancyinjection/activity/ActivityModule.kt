@@ -13,13 +13,7 @@ import dagger.Provides
  * any functional concerns
  */
 @Module
-class ActivityModule(
-    //bootstrapping dependencies
-    private val activity: AppCompatActivity
-) {
-
-    @Provides
-    fun activity() = activity
+class ActivityModule() {
 
     //to make this code more performant we need to make provider methods static (in kotlin its done with companion object)
     //the code that dagger will generate behind the scences will be more performant

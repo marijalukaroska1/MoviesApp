@@ -10,5 +10,6 @@ import dagger.Component
 interface AppComponent {
 
     fun newServiceComponent(serviceModule: ServiceModule)
-    fun newActivityComponent(activityModule: ActivityModule):ActivityComponent
+
+    fun newActivityComponentBuilder(): ActivityComponent.Builder
 }
