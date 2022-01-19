@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.moviesapp.MoviesApplication
 import com.example.moviesapp.common.dependancyinjection.activity.ActivityModule
 import com.example.moviesapp.common.dependancyinjection.presentation.PresentationModule
+import com.example.moviesapp.common.dependancyinjection.presentation.UseCasesModule
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -13,7 +14,7 @@ open class BaseActivity : AppCompatActivity() {
 
 
     private val presentationComponent by lazy {
-        activityComponent.newPresentationComponent(PresentationModule())
+        activityComponent.newPresentationComponent(PresentationModule(), UseCasesModule())
     }
 
     protected val injector get() = presentationComponent

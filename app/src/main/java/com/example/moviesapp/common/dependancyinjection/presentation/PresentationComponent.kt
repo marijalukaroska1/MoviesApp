@@ -6,9 +6,11 @@ import dagger.Subcomponent
 
 /**
  * PresentationComponent is a subcomponent of ActivityComponent
+ *
+ * Whatever you provide in PresentationModule can be used in UseCasesModule and vice versa
  */
 @PresentationScope
-@Subcomponent(modules = [PresentationModule::class])
+@Subcomponent(modules = [PresentationModule::class, UseCasesModule::class])
 interface PresentationComponent {
     fun inject(fragment: MoviesListFragment)
     fun inject(fragment: MovieDetailsFragment)

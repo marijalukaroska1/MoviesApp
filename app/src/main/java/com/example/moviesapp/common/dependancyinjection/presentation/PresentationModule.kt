@@ -2,8 +2,6 @@ package com.example.moviesapp.common.dependancyinjection.presentation
 
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentManager
-import com.example.moviesapp.common.dependancyinjection.activity.ActivityComponent
-import com.example.moviesapp.movies.FetchMovieDetailsUseCase
 import com.example.moviesapp.movies.FetchMoviesUseCase
 import com.example.moviesapp.movies.MoviesRemoteDataSource
 import com.example.moviesapp.networking.MoviesApi
@@ -13,22 +11,14 @@ import dagger.Module
 import dagger.Provides
 
 /**
- * This PresentationCompositionRoot is just one huge factory,
- * and used just to make sure ActivityCompositionRoot stays clean
- *
- * This class just instantiates other classes and declare dependencies, and do not handle any functional concerns
+ * This class just instantiates other classes and declare dependencies,
+ * and does not handle any functional concerns
  */
 @Module
 class PresentationModule() {
 
     @Provides
     fun dialogsNavigator(fragmentManager: FragmentManager) = DialogsNavigator(fragmentManager)
-
-    @Provides
-    fun fetchMoviesUseCase(moviesApi: MoviesApi) = FetchMoviesUseCase(moviesApi)
-
-    @Provides
-    fun fetchMovieDetailsUseCase(moviesApi: MoviesApi) = FetchMovieDetailsUseCase(moviesApi)
 
     @Provides
     fun moviesRemoteDataSource(moviesApi: MoviesApi) : MoviesRemoteDataSource =
