@@ -8,7 +8,7 @@ class MoviesApplication : Application() {
 
     // lateinit = initialized after the declaration.
     // we use this when we are sure that the variable will be initialized before using it
-    public val appComponent by lazy {
+    val appComponent by lazy {
         DaggerAppComponent.builder()
             .appModule(AppModule(this))
             .build()

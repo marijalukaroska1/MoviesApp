@@ -5,8 +5,9 @@ import android.view.ViewGroup
 import com.example.moviesapp.screens.dialogs.DialogsNavigator
 import com.example.moviesapp.screens.moviedetails.MovieDetailsViewMvc
 import com.example.moviesapp.screens.movieslist.MoviesListViewMvc
+import javax.inject.Inject
 
-class ViewMvcFactory(private val layoutInflater: LayoutInflater) {
+class ViewMvcFactory @Inject constructor(private val layoutInflater: LayoutInflater) {
 
     fun getMovieDetailsViewMvc(parent: ViewGroup?): MovieDetailsViewMvc {
         return MovieDetailsViewMvc(layoutInflater, parent)

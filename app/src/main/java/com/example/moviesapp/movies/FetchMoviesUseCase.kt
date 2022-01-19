@@ -6,11 +6,12 @@ import com.example.moviesapp.networking.MoviesApi
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
 import java.io.IOException
+import javax.inject.Inject
 
 private const val DEFAULT_PAGE_INDEX = 1
 private const val DEFAULT_PAGE_SIZE = 20
 
-class FetchMoviesUseCase(val moviesApi: MoviesApi) :
+class FetchMoviesUseCase @Inject constructor(val moviesApi: MoviesApi) :
     PagingSource<Int, Movie>() {
 
     override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {

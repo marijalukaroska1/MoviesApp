@@ -5,9 +5,10 @@ import com.example.moviesapp.Constants
 import com.example.moviesapp.networking.MoviesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException
 
-class FetchMovieDetailsUseCase(private val moviesApi: MoviesApi) {
+class FetchMovieDetailsUseCase @Inject constructor(private val moviesApi: MoviesApi) {
 
     sealed class Result {
         data class Success(val movieWithBody: MovieWithBody) : Result()

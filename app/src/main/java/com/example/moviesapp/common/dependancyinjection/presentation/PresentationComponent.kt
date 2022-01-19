@@ -1,6 +1,7 @@
 package com.example.moviesapp.common.dependancyinjection.presentation
 
 import com.example.moviesapp.screens.moviedetails.MovieDetailsFragment
+import com.example.moviesapp.screens.movieslist.MoviesListActivity
 import com.example.moviesapp.screens.movieslist.MoviesListFragment
 import dagger.Subcomponent
 
@@ -10,8 +11,10 @@ import dagger.Subcomponent
  * Whatever you provide in PresentationModule can be used in UseCasesModule and vice versa
  */
 @PresentationScope
-@Subcomponent(modules = [PresentationModule::class, UseCasesModule::class])
+@Subcomponent(modules = [PresentationModule::class])
 interface PresentationComponent {
     fun inject(fragment: MoviesListFragment)
     fun inject(fragment: MovieDetailsFragment)
+    fun inject(moviesListActivity: MoviesListActivity) {
+    }
 }

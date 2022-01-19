@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.moviesapp.movies.FetchMovieDetailsUseCase
+import com.example.moviesapp.screens.ScreensNavigator
 import com.example.moviesapp.screens.common.fragments.BaseFragment
 import com.example.moviesapp.screens.common.views.ViewMvcFactory
 import com.example.moviesapp.screens.dialogs.DialogsNavigator
+import com.example.moviesapp.screens.movieslist.MoviesListFragment
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
@@ -22,14 +24,17 @@ class MovieDetailsFragment : BaseFragment(), MovieDetailsViewMvc.Listener {
     lateinit var fetchMovieDetailsUseCase: FetchMovieDetailsUseCase
     @Inject
     lateinit var viewMvcFactory: ViewMvcFactory
+    @Inject
+    lateinit var screensNavigator: ScreensNavigator
 
     private lateinit var viewMvc: MovieDetailsViewMvc
 
     private var movieId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         injector.inject(this)
+        Log.e(this::class.java.simpleName, "$screensNavigator ${requireActivity()}")
+        super.onCreate(savedInstanceState)
         Log.d(this::class.java.simpleName, "context: " + context)
     }
 
