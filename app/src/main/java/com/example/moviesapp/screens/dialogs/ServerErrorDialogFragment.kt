@@ -3,10 +3,10 @@ package com.example.moviesapp.screens.dialogs
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
 import com.example.moviesapp.R
+import com.example.moviesapp.screens.common.dialogs.BaseDialog
 
-class ServerErrorDialogFragment : DialogFragment() {
+class ServerErrorDialogFragment : BaseDialog() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return AlertDialog.Builder(activity).let {
