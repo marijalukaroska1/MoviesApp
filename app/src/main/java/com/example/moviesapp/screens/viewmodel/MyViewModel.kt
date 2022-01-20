@@ -28,13 +28,4 @@ class MyViewModel @Inject constructor(
             }
         }
     }
-
-
-    //using providers will insure that whenever new instance is created of MyViewModel, it will use MoviesRemoteDataSource according to the Dagger policy
-    class Factory @Inject constructor(private val myViewModelProvider: Provider<MyViewModel>) :
-        ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return myViewModelProvider.get() as T
-        }
-    }
 }

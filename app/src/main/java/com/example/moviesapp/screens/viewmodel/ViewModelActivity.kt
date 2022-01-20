@@ -6,12 +6,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.moviesapp.R
 import com.example.moviesapp.screens.common.activities.BaseActivity
+import com.example.moviesapp.screens.common.viewmodels.ViewModelsFactory
 import javax.inject.Inject
 
 class ViewModelActivity : BaseActivity() {
 
     @Inject
-    lateinit var myViewModelFactory: MyViewModel.Factory
+    lateinit var myViewModelFactory: ViewModelsFactory
     private lateinit var myViewModel: MyViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
