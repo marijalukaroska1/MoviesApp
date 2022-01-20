@@ -7,14 +7,15 @@ import com.example.moviesapp.screens.dialogs.DialogsNavigator
 import com.example.moviesapp.screens.moviedetails.MovieDetailsViewMvc
 import com.example.moviesapp.screens.movieslist.MoviesListViewMvc
 import javax.inject.Inject
+import javax.inject.Provider
 
-class ViewMvcFactory @Inject constructor(private val layoutInflater: LayoutInflater, private val imageLoader: ImageLoader) {
+class ViewMvcFactory @Inject constructor(private val layoutInflaterProvider: Provider<LayoutInflater>, private val imageLoaderProvider: Provider<ImageLoader>) {
 
     fun getMovieDetailsViewMvc(parent: ViewGroup?): MovieDetailsViewMvc {
-        return MovieDetailsViewMvc(layoutInflater, imageLoader, parent)
+        return MovieDetailsViewMvc(layoutInflaterProvider.get(), imageLoaderProvider.get(), parent)
     }
 
     fun getMoviesListViewMvc(parent: ViewGroup?, dialogsNavigator: DialogsNavigator): MoviesListViewMvc {
-        return MoviesListViewMvc(layoutInflater, parent, dialogsNavigator)
+        return MoviesListViewMvc(layoutInflaterProvider.get(), parent, dialogsNavigator, imageLoaderProvider.get())
     }
 }

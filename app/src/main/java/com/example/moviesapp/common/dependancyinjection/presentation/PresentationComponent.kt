@@ -3,6 +3,7 @@ package com.example.moviesapp.common.dependancyinjection.presentation
 import com.example.moviesapp.screens.moviedetails.MovieDetailsFragment
 import com.example.moviesapp.screens.movieslist.MoviesListActivity
 import com.example.moviesapp.screens.movieslist.MoviesListFragment
+import com.example.moviesapp.screens.viewmodel.ViewModelActivity
 import dagger.Subcomponent
 
 /**
@@ -15,6 +16,6 @@ import dagger.Subcomponent
 interface PresentationComponent {
     fun inject(fragment: MoviesListFragment)
     fun inject(fragment: MovieDetailsFragment)
-    fun inject(moviesListActivity: MoviesListActivity) {
-    }
+    fun inject(moviesListActivity: MoviesListActivity)
+    fun inject(viewModelActivity: ViewModelActivity)
 }

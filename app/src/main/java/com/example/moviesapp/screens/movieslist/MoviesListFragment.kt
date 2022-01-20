@@ -59,6 +59,10 @@ class MoviesListFragment : BaseFragment(), MoviesListViewMvc.Listener {
         screensNavigator.toMovieDetails(viewMvc.rootView, clickedMovie.id)
     }
 
+    override fun onViewModelClicked() {
+        screensNavigator.toViewModelScreen(viewMvc.rootView.context)
+    }
+
     private fun fetchMovies() {
         coroutineScope.launch {
             moviesRemoteDataSource.getPopularMovies().collectLatest { movies ->

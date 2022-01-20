@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import coil.load
 import com.example.moviesapp.Constants
 import com.example.moviesapp.R
 import com.example.moviesapp.movies.Movie
+import com.example.moviesapp.screens.common.imageloader.ImageLoader
 import com.example.moviesapp.screens.common.views.BaseViewMvc
 import com.example.moviesapp.screens.dialogs.DialogsNavigator
 
@@ -23,7 +23,8 @@ import com.example.moviesapp.screens.dialogs.DialogsNavigator
 class MoviesListViewMvc(
     layoutInflater: LayoutInflater,
     parent: ViewGroup?,
-    dialogsNavigator: DialogsNavigator
+    dialogsNavigator: DialogsNavigator,
+    private val imageLoader: ImageLoader
 ) : BaseViewMvc<MoviesListViewMvc.Listener>(
     layoutInflater,
     parent,
@@ -33,10 +34,12 @@ class MoviesListViewMvc(
     interface Listener {
         fun onRefreshClicked()
         fun onMovieClicked(clickedMovie: Movie)
+        fun onViewModelClicked()
     }
 
     private val swipeRefresh: SwipeRefreshLayout
     private val recyclerView: RecyclerView
+    private val viewModel: TextView
     val moviesAdapter: MoviesAdapter
 
     init {
@@ -50,11 +53,11 @@ class MoviesListViewMvc(
 
         recyclerView = findViewById(R.id.recycler)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        moviesAdapter = MoviesAdapter { clickedMovie ->
+        moviesAdapter = MoviesAdapter ( { clickedMovie ->
             for (listener in listeners) {
                 listener.onMovieClicked(clickedMovie)
             }
-        }
+        }, imageLoader)
 
         moviesAdapter.addLoadStateListener {
             if (it.refresh is LoadState.Error) {
@@ -68,6 +71,16 @@ class MoviesListViewMvc(
         }
 
         recyclerView.adapter = moviesAdapter
+
+        viewModel = findViewById(R.id.viewmodel)
+
+        viewModel.visibility = View.VISIBLE
+
+        viewModel.setOnClickListener {
+            for (listener in listeners) {
+                listener.onViewModelClicked()
+            }
+        }
     }
 
     suspend fun bindMovies(movies: PagingData<Movie>) {
@@ -84,7 +97,7 @@ class MoviesListViewMvc(
         }
     }
 
-    class MoviesAdapter(private val onMovieClickListener: (Movie) -> Unit) :
+    class MoviesAdapter(private val onMovieClickListener: (Movie) -> Unit, private val imageLoader: ImageLoader) :
         PagingDataAdapter<Movie, MoviesAdapter.MoviesViewHolder>(MovieDiffCallBack()) {
 
 
@@ -104,7 +117,7 @@ class MoviesListViewMvc(
         override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
             holder.title.text = getItem(position)?.title
             holder.description.text = getItem(position)?.description
-            holder.image.load(Constants.IMAGE_BASE_URL + getItem(position)?.posterPath)
+            imageLoader.loadImage(Constants.IMAGE_BASE_URL + getItem(position)?.posterPath, holder.image)
             holder.itemView.setOnClickListener {
                 onMovieClickListener.invoke(getItem(position)!!)
             }
