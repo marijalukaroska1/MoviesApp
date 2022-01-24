@@ -6,8 +6,11 @@ import com.example.moviesapp.Constants
 import com.example.moviesapp.networking.MoviesApi
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 /**
  * Abstraction that encapsulates all the details
@@ -26,7 +29,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 // lint will report if this condition is violated
 @UiThread
 @Module
-class AppModule(val application: Application) {
+@InstallIn(SingletonComponent::class)
+class AppModule {
 
     @Provides
     @AppScope
@@ -39,7 +43,5 @@ class AppModule(val application: Application) {
     @Provides
     @AppScope
     fun moviesApi(retrofit: Retrofit) = retrofit.create(MoviesApi::class.java)
-
-    @Provides
-    fun application() = application
+    
 }
