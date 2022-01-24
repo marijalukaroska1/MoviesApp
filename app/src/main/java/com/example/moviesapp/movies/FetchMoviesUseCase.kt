@@ -52,9 +52,7 @@ class FetchMoviesUseCase @Inject constructor(val moviesApi: MoviesApi) :
         }
     }
 
-    class MoviesRemoteDataSourceImpl(
-        private val moviesApi: MoviesApi
-    ) : MoviesRemoteDataSource {
+    class MoviesRemoteDataSourceImpl @Inject constructor(private val moviesApi: MoviesApi) : MoviesRemoteDataSource {
 
         override fun getPopularMovies(): Flow<PagingData<Movie>> {
             return Pager(

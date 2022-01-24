@@ -1,13 +1,11 @@
 package com.example.moviesapp.common.dependancyinjection.service
 
-import android.app.Service
-import android.content.Context
 import dagger.Module
-import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
 @Module
-class ServiceModule(val service: Service) {
+@InstallIn(SingletonComponent::class)
+class ServiceModule() {
 
-    @Provides
-    fun context(): Context = service
 }

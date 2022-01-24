@@ -12,31 +12,25 @@ import com.example.moviesapp.screens.ScreensNavigator
 import com.example.moviesapp.screens.common.fragments.BaseFragment
 import com.example.moviesapp.screens.common.views.ViewMvcFactory
 import com.example.moviesapp.screens.dialogs.DialogsNavigator
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class MoviesListFragment : BaseFragment(), MoviesListViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    @Inject
-    lateinit var fetchMoviesUseCase: FetchMoviesUseCase
-    @Inject
-    lateinit var moviesRemoteDataSource: MoviesRemoteDataSource
-    @Inject
-    lateinit var dialogsNavigator: DialogsNavigator
-    @Inject
-    lateinit var screensNavigator: ScreensNavigator
-    @Inject
-    lateinit var viewMvcFactory: ViewMvcFactory
+    @Inject lateinit var fetchMoviesUseCase: FetchMoviesUseCase
+    @Inject lateinit var moviesRemoteDataSource: MoviesRemoteDataSource
+    @Inject lateinit var dialogsNavigator: DialogsNavigator
+    @Inject lateinit var screensNavigator: ScreensNavigator
+    @Inject lateinit var viewMvcFactory: ViewMvcFactory
 
     private lateinit var viewMvc: MoviesListViewMvc
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injector.inject(this)
-        Log.e(this::class.java.simpleName, "$screensNavigator  ${requireActivity()}")
         super.onCreate(savedInstanceState)
     }
 
