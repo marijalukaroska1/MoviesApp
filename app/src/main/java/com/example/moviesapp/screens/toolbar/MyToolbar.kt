@@ -15,10 +15,6 @@ class MyToolbar : Toolbar {
         fun onNavigationUpClicked()
     }
 
-    interface ViewModelListener {
-        fun onViewModelClicked()
-    }
-
     private var navigateUpListener: () -> Unit = {}
     private var viewModelListener: () -> Unit = {}
 
@@ -33,7 +29,11 @@ class MyToolbar : Toolbar {
         init(context)
     }
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         init(context)
     }
 
@@ -50,10 +50,4 @@ class MyToolbar : Toolbar {
         this.navigateUpListener = navigateUpListener
         navigateUp.visibility = View.VISIBLE
     }
-
-    fun setViewModelListener(viewModelListener: () -> Unit) {
-        this.viewModelListener = viewModelListener
-        viewmodel.visibility = View.VISIBLE
-    }
-
 }

@@ -4,7 +4,6 @@ import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import com.example.moviesapp.movies.FetchMoviesUseCase
 import com.example.moviesapp.movies.MoviesRemoteDataSource
-import com.example.moviesapp.networking.MoviesApi
 import com.example.moviesapp.screens.ScreensNavigator
 import dagger.Binds
 import dagger.Module
